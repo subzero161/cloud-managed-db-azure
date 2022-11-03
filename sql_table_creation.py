@@ -6,10 +6,10 @@ import os
 load_dotenv()
 
 
-MYSQL_HOSTNAME = os.getenv("MYSQL_HOSTNAME_AZURE")
-MYSQL_USER = os.getenv("MYSQL_USER_AZURE")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD_AZURE")
-MYSQL_DATABASE = os.getenv("MYSQL_DATABASE_AZURE")
+MYSQL_HOSTNAME = os.getenv("MYSQL_HOSTNAME")
+MYSQL_USER = os.getenv("MYSQL_USER")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
 
 connection_string = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOSTNAME}:3306/{MYSQL_DATABASE}'
 connection_string
