@@ -7,12 +7,12 @@ import os
 from faker import Faker # https://faker.readthedocs.io/en/master/
 import uuid
 import random
+load_dotenv()
 
-MYSQL_HOSTNAME = os.getenv("MYSQL_HOSTNAME")
-print(MYSQL_HOSTNAME)
-MYSQL_USER = os.getenv("MYSQL_USER")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
+MYSQL_HOSTNAME = os.getenv("MYSQL_HOSTNAME_AZURE")
+MYSQL_USER = os.getenv("MYSQL_USER_AZURE")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD_AZURE")
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE_AZURE")
 
 connection_string = f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOSTNAME}:3306/{MYSQL_DATABASE}'
 connection_string
@@ -28,15 +28,15 @@ fake = Faker()
 
 fake_patients = [
     {
-        #keep just the first 8 characters of the uuid
-        'mrn': str(uuid.uuid4())[:8], 
-        'first_name':fake.first_name(), 
-        'last_name':fake.last_name(),
-        'zip_code':fake.zipcode(),
-        'dob':(fake.date_between(start_date='-90y', end_date='-20y')).strftime("%Y-%m-%d"),
-        'gender': fake.random_element(elements=('M', 'F')),
-        'contact_mobile':fake.phone_number(),
-        'contact_home':fake.phone_number()
+    #keep just the first 8 characters of the uuid
+    'mrn': str(uuid.uuid4())[:8], 
+    'first_name':fake.first_name(), 
+    'last_name':fake.last_name(),
+    'zip_code':fake.zipcode(),
+    'dob':(fake.date_between(start_date='-90y', end_date='-20y')).strftime("%Y-%m-%d"),
+    'gender': fake.random_element(elements=('M', 'F')),
+    'contact_mobile':fake.phone_number(),
+    'contact_home':fake.phone_number()
     } for x in range(50)]
 
 df_fake_patients = pd.DataFrame(fake_patients)
