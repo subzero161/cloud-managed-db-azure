@@ -170,17 +170,17 @@ df_azure = pd.read_sql_query("SELECT * FROM treatment_procedures", db_azure)
 df_treatment_procedures = pd.read_sql_query("SELECT cpt FROM treatment_procedures", db_azure)
 df_patients = pd.read_sql_query("SELECT mrn FROM patients", db_azure)
 
-df_patient_treatment_procedures = pd.DataFrame(columns=['mrn', 'cpt'])
+df_patient_treatments_procedures = pd.DataFrame(columns=['mrn', 'cpt'])
 for index, row in df_patients.iterrows():
     df_treatment_procedures_sample = df_treatment_procedures.sample(n=random.randint(1, 5))
     df_treatment_procedures_sample['mrn'] = row['mrn']
-    df_patient_treatment_procedures = df_patient_treatment_procedures.append(df_treatment_procedures_sample)
+    df_patient_treatments_procedures = df_patient_treatments_procedures.append(df_treatment_procedures_sample)
 
-print(df_patient_treatment_procedures.head(10))
+print(df_patient_treatments_procedures.head(10))
 
-insertQuery = "INSERT INTO patient_treatment_procedures (mrn, cpt) VALUES (%s, %s)"
+insertQuery = "INSERT INTO patient_treatments_procedures (mrn, cpt) VALUES (%s, %s)"
 
-for index, row in df_patient_treatment_procedures.iterrows():
+for index, row in df_patient_treatments_procedures.iterrows():
     db_azure.execute(insertQuery, (row['mrn'], row['cpt']))
     print("inserted row: ", index)
 

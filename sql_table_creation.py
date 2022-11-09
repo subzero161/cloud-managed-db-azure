@@ -1,6 +1,5 @@
-#import packages
-from sqlalchemy import create_engine
 import sqlalchemy
+from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import os
 load_dotenv()
@@ -110,6 +109,16 @@ create table if not exists patient_conditions (
 ); 
 """
 
+table_patient_treatments_procedures = """
+create table if not exists patient_treatments_procedures (
+    id int auto_increment,
+    mrn varchar(255) default null,
+    cpt varchar(255) default null,
+    PRIMARY KEY (id),
+    FOREIGN KEY (mrn) REFERENCES patients(mrn) ON DELETE CASCADE,
+    FOREIGN KEY (cpt) REFERENCES treatment_procedures(cpt) ON DELETE CASCADE
+); 
+"""
 table_social_determinants = """
 create table if not exists social_determinants (
     id int auto_increment,
