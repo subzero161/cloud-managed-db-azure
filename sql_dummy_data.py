@@ -1,12 +1,14 @@
 import dbm
-import pandas as pd 
-import sqlalchemy
-from sqlalchemy import create_engine
-from dotenv import load_dotenv
 import os
-from faker import Faker # https://faker.readthedocs.io/en/master/
-import uuid
 import random
+import uuid
+
+import pandas as pd
+import sqlalchemy
+from dotenv import load_dotenv
+from faker import Faker  # https://faker.readthedocs.io/en/master/
+from sqlalchemy import create_engine
+
 load_dotenv()
 
 MYSQL_HOSTNAME = os.getenv("MYSQL_HOSTNAME_AZURE")
@@ -184,7 +186,7 @@ for index, row in df_patient_treatments_procedures.iterrows():
     db_azure.execute(insertQuery, (row['mrn'], row['cpt']))
     print("inserted row: ", index)
 
-df_azure = pd.read_sql_query("SELECT * FROM patient_treatment_procedures", db_azure)
+df_azure = pd.read_sql_query("SELECT * FROM patient_treatments_procedures", db_azure)
 
 #### CREATING FAKE SOCIAL DETERMINANTS ####
 insertQuery = "INSERT INTO social_determinants (loinc, description) VALUES (%s, %s)"
